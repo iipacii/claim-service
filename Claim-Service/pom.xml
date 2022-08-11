@@ -80,6 +80,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>claim-service-repo</finalName>
 	</build>
 
 </project>
