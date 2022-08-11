@@ -65,6 +65,7 @@ public class ClaimService {
 			claim.setHospitalId(claimInput.getHospitalId());
 			claim.setPolicyBenefits(claimInput.getClaimBenefit());
 			claim.setPolicyId(claimInput.getPolicyId());
+			claim.setMemberId(claimInput.getMemberId());
 			if(policyBenefitFlag==false ) {
 				claim.setStatus("Under Dispute");
 				claim.setRemarks("Your policy benefits do not match.");

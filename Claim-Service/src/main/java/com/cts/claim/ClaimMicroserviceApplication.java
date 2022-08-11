@@ -39,7 +39,7 @@ public class ClaimMicroserviceApplication {
 					//breaking into each line
 					while ((line = br.readLine()) != null) {
 						//breaking each line to multiple data
-						String[] values = line.split("\t");
+						String[] values = line.split(",");
 //						System.out.println(values[1]);
 //						System.out.println(values[2]);
 //						System.out.println(Integer.parseInt(values[3]));
@@ -57,6 +57,7 @@ public class ClaimMicroserviceApplication {
 								.policyId(values[6])
 								.policyBenefits(values[7])
 								.hospitalId(values[8])
+								.memberId(values[8])
 								.build());
 					}
 				}

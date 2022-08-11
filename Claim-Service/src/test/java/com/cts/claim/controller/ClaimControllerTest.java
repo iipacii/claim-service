@@ -58,7 +58,7 @@ class ClaimControllerTest {
 		claim1.amtClaimed= 8000;
 		claim1.benefitAvailed= 2700000;
 		claim1.hospitalId="CMS_H001";
-		claim1.policyBenefits="Dialysis";
+		claim1.claimBenefit="Dialysis";
 		claim1.policyId="CMS_P002";
 		when(authClient.authorizeTheRequest("CorrectToken")).thenReturn(true);
 		String jsonString = mapper.writeValueAsString(claim1);

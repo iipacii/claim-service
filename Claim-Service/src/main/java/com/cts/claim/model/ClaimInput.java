@@ -13,5 +13,6 @@ public class ClaimInput {
 	public String hospitalId;
 	public Integer benefitAvailed;
 	public Integer amtClaimed;
+	public String memberId;
 
 }

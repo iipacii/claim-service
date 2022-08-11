@@ -42,7 +42,7 @@ class ClaimServiceTest {
 
 	@Test
 	void testGetClaimStatus() throws ClaimNotFoundException, TokenExpireException {
-		Claim claim1= new Claim("CMS_C001", "Pending Action", "NIL", 2700000, 333900, true, "CMS_P002", "BP, Diabeties, Cancer", "CMS_H001");
+		Claim claim1= new Claim("CMS_C001", "Pending Action", "NIL", 2700000, 333900, true, "CMS_P002", "Dengue", "CMS_H001","CMS_M001");
 		when(authClient.authorizeTheRequest("CorrectToken")).thenReturn(true);
 		when(claimrepo.save(claim1)).thenReturn(claim1);
 		when(claimrepo.findByClaimId("CMS_C001")).thenReturn((claim1));
@@ -50,7 +50,7 @@ class ClaimServiceTest {
 	}
 	@Test
 	void testGetClaimStatusWithInvalidId() throws ClaimNotFoundException {
-		Claim claim1= new Claim("CMS_C001", "Pending Action", "NIL", 2700000, 333900, true, "CMS_P002", "BP, Diabeties, Cancer", "CMS_H001");
+		Claim claim1= new Claim("CMS_C001", "Pending Action", "NIL", 2700000, 333900, true, "CMS_P002", "BP, Diabeties, Cancer", "CMS_H001","CMS_M001");
 		when(authClient.authorizeTheRequest("CorrectToken")).thenReturn(true);
 		when(claimrepo.save(claim1)).thenReturn(claim1);
 		when(claimrepo.findByClaimId("CMS_C001")).thenReturn((claim1));
@@ -66,7 +66,7 @@ class ClaimServiceTest {
 		claim1.amtClaimed= 8000;
 		claim1.benefitAvailed= 2700000;
 		claim1.hospitalId="CMS_H001";
-		claim1.policyBenefits="Dialysis";
+		claim1.claimBenefit="Dialysis";
 		claim1.policyId="CMS_P002";
 		when(claimrepo.save(claim1)).thenReturn(claim1);
 		when(authClient.authorizeTheRequest("CorrectToken")).thenReturn(true);

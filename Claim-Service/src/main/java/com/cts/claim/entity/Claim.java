@@ -42,5 +42,6 @@ public class Claim {
 	private String policyId;
 	private String policyBenefits;
 	private String hospitalId;
+	public String memberId;
 
 }
