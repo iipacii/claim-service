@@ -1,0 +1,10 @@
+CMS_C001	Pending Action	4th stage cancer treatment	2700000	333900	TRUE	CMS_P002	Cancer	CMS_H001
+CMS_C002	Calim Rejected	dengue fever treatment	400000	2470000	FALSE	CMS_P001	Chikengunya	CMS_H002
+CMS_C003	Calim Rejected	NA	800000	530000	FALSE	CMS_P009	Life iTerm Plan	CMS_H001
+CMS_C004	Calim Rejected	horrific road accident with 2 casualities of same family	750000	357000	FALSE	CMS_P003	Accident	CMS_H001
+CMS_C005	Pending Action	a heart stroke - stage2	5300000	362100	FALSE	CMS_P006	Heart Attack	CMS_H006
+CMS_C006	Calim Rejected	NA	50000	64200	FALSE	CMS_P007	Room Rent	CMS_H005
+CMS_C007	Pending Action	a bike accident	250000	190000	FALSE	CMS_P003	BP	CMS_H006
+CMS_C008	Under Dispute	over sugar dosage	900000	516000	FALSE	CMS_P002	Diabeties	CMS_H006
+CMS_C009	Calim Rejected	hospital patient room rent	607000	411000	FALSE	CMS_P007	Room Rent	CMS_H006
+CMS_C010	Insufficient Details	NA	2870000	47250	FALSE	CMS_P003	Accident	CMS_H006
