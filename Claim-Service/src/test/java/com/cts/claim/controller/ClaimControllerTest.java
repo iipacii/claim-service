@@ -48,7 +48,7 @@ class ClaimControllerTest {
 	@Test
 	void testGetClaimStatus() throws Exception {
 		when(authClient.authorizeTheRequest("CorrectToken")).thenReturn(true);
-		this.mockMvc.perform(get("/getClaimStatus/{claimId}", 10).header("Authorization", "CorrectToken")).andExpect(status().isOk());
+		this.mockMvc.perform(get("/getClaimStatus/{claimId}", "CMS_001").header("Authorization", "CorrectToken")).andExpect(status().isOk());
 
 	}
 

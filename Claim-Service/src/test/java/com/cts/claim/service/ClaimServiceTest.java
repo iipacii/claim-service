@@ -20,6 +20,7 @@ import com.cts.claim.exception.ClaimNotFoundException;
 import com.cts.claim.exception.PolicyNotFoundException;
 import com.cts.claim.exception.TokenExpireException;
 import com.cts.claim.model.ClaimInput;
+import com.cts.claim.model.ClaimStatusOutput;
 import com.cts.claim.model.Policy;
 import com.cts.claim.repository.ClaimRepository;
 
@@ -41,13 +42,16 @@ class ClaimServiceTest {
 	}
 
 	@Test
+	//Test for correct Claim 
 	void testGetClaimStatus() throws ClaimNotFoundException, TokenExpireException {
 		Claim claim1= new Claim("CMS_C001", "Pending Action", "NIL", 2700000, 333900, true, "CMS_P002", "Dengue", "CMS_H001","CMS_M001");
 		when(authClient.authorizeTheRequest("CorrectToken")).thenReturn(true);
 		when(claimrepo.save(claim1)).thenReturn(claim1);
 		when(claimrepo.findByClaimId("CMS_C001")).thenReturn((claim1));
-		assertTrue(service.getClaimStatus("CMS_C001","CorrectToken").equals(claim1));
+		assertTrue(service.getClaimStatus("CMS_C001","CorrectToken").equals(ClaimStatusOutput.builder().claimStatus(claim1.getStatus()).remarks(claim1.getRemarks()).build()));
 	}
+	
+	//Test for Incorrect Claim
 	@Test
 	void testGetClaimStatusWithInvalidId() throws ClaimNotFoundException {
 		Claim claim1= new Claim("CMS_C001", "Pending Action", "NIL", 2700000, 333900, true, "CMS_P002", "BP, Diabeties, Cancer", "CMS_H001","CMS_M001");
@@ -55,11 +59,11 @@ class ClaimServiceTest {
 		when(claimrepo.save(claim1)).thenReturn(claim1);
 		when(claimrepo.findByClaimId("CMS_C001")).thenReturn((claim1));
 		assertThrows(ClaimNotFoundException.class, () -> {
-			service.getClaimStatus("CMS_C002","CorrectToken"); //Claim Not Found Exception
+			service.getClaimStatus("CMS_C002","CorrectToken"); 
 		});
 	}
 
-
+	//Test for correct claim submission
 	@Test
 	void testSubmitClaim() throws PolicyNotFoundException, TokenExpireException {
 		ClaimInput claim1= new ClaimInput();

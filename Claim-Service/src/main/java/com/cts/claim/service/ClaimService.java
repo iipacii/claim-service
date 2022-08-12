@@ -12,6 +12,7 @@ import com.cts.claim.exception.ClaimNotFoundException;
 import com.cts.claim.exception.PolicyNotFoundException;
 import com.cts.claim.exception.TokenExpireException;
 import com.cts.claim.model.ClaimInput;
+import com.cts.claim.model.ClaimStatusOutput;
 import com.cts.claim.model.Policy;
 import com.cts.claim.model.PolicyProvider;
 import com.cts.claim.repository.ClaimRepository;
@@ -25,13 +26,13 @@ public class ClaimService {
 	@Autowired
 	PolicyServiceClient policyclient;
 
-	public Claim getClaimStatus(String claimId, String token) throws ClaimNotFoundException, TokenExpireException {
+	public ClaimStatusOutput getClaimStatus(String claimId, String token) throws ClaimNotFoundException, TokenExpireException {
 		if (authClient.authorizeTheRequest(token)) {
 			Claim claim = claimrepo.findByClaimId(claimId);
 			if (claim == null)
 				throw new ClaimNotFoundException("Claim not found");
 			else
-				return claim;
+				return ClaimStatusOutput.builder().claimStatus(claim.getStatus()).remarks(claim.getRemarks()).build();
 		} else {
 			throw new TokenExpireException("Token is expired");
 		}

@@ -15,6 +15,7 @@ import com.cts.claim.exception.ClaimNotFoundException;
 import com.cts.claim.exception.PolicyNotFoundException;
 import com.cts.claim.exception.TokenExpireException;
 import com.cts.claim.model.ClaimInput;
+import com.cts.claim.model.ClaimStatusOutput;
 import com.cts.claim.service.ClaimService;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -23,7 +24,7 @@ public class ClaimController {
 	@Autowired
 	ClaimService service;
 	@GetMapping(value="/getClaimStatus/{claimId}")
-	public Claim getClaimStatus(@PathVariable("claimId") String claimId, @RequestHeader("Authorization") String token) throws ClaimNotFoundException, TokenExpireException, MissingRequestHeaderException {
+	public ClaimStatusOutput getClaimStatus(@PathVariable("claimId") String claimId, @RequestHeader("Authorization") String token) throws ClaimNotFoundException, TokenExpireException, MissingRequestHeaderException {
 		return service.getClaimStatus(claimId,token);
 	}
 	
