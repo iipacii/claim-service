@@ -75,7 +75,8 @@ class ClaimServiceTest {
 		when(claimrepo.save(claim1)).thenReturn(claim1);
 		when(authClient.authorizeTheRequest("CorrectToken")).thenReturn(true);
 		Policy policy = new Policy("CMS_P002","ReAssure",12,9950,201,"Dialysis, Diabeties, Cancer");
-		when(policyclient.getPolicy(claim1.getPolicyId())).thenReturn(policy);
+		String policyBenefit = "Dialysis, Diabeties, Cancer";
+		when(policyclient.getPolicyBenefits(claim1.getPolicyId(),"CorrectToken")).thenReturn(policyBenefit);
 		Claim claim= service.submitClaim(claim1,"CorrectToken");
 		when(claimrepo.save(claim)).thenReturn(claim);
 		when(service.submitClaim(claim1,"CorrectToken")).thenReturn(claim);

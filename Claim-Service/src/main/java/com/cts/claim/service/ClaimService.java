@@ -1,8 +1,10 @@
 package com.cts.claim.service;
 
 import java.util.List;
+import java.util.Properties;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.cts.claim.client.AuthClient;
@@ -25,6 +27,10 @@ public class ClaimService {
 	AuthClient authClient;
 	@Autowired
 	PolicyServiceClient policyclient;
+	
+	@Value("${Benefit.tenure}")
+	private int beneditTenure; 
+	
 
 	public ClaimStatusOutput getClaimStatus(String claimId, String token) throws ClaimNotFoundException, TokenExpireException {
 		if (authClient.authorizeTheRequest(token)) {
@@ -41,12 +47,17 @@ public class ClaimService {
 	public Claim submitClaim(ClaimInput claimInput, String token) throws PolicyNotFoundException, TokenExpireException {
 		if (authClient.authorizeTheRequest(token)) {
 			//getting claim amount from policy
-			int claimAmount = policyclient.getEligibleClaimAmount(claimInput.getPolicyId());
-			List<PolicyProvider> list = policyclient.getAllPolicyProviders(claimInput.getPolicyId());
+			
+
+			int claimAmount = policyclient.getEligibleClaimAmount(claimInput.getBenefitId(),token);
+//			System.out.println(claimAmount*beneditTenure);
+			List<PolicyProvider> list = policyclient.getAllPolicyProviders(claimInput.getPolicyId(),token);
 			boolean hospitalFlag = false;
 			boolean policyBenefitFlag=false;
 			//checking if hospital is a permissible health care provider
+			System.out.println(list);
 			for (PolicyProvider p : list) {
+
 				if (p.getHospitalId().equalsIgnoreCase(claimInput.getHospitalId())) {
 					if(p.isHealthCareProvider())
 					hospitalFlag = true;
@@ -54,9 +65,9 @@ public class ClaimService {
 				}
 			}
 			
-			Policy policy= policyclient.getPolicy(claimInput.getPolicyId());
+			String policyBenefits= policyclient.getPolicyBenefits(claimInput.getPolicyId(),token);
 			//checking if the policy covers the benefits required
-			if(policy.getPolicyBenefits().contains(claimInput.claimBenefit))
+			if(policyBenefits.contains(claimInput.claimBenefit))
 			{
 				policyBenefitFlag=true;
 			}
@@ -71,7 +82,7 @@ public class ClaimService {
 				claim.setStatus("Under Dispute");
 				claim.setRemarks("Your policy benefits do not match.");
 			}
-			else if (hospitalFlag == true && claimAmount >= claimInput.getAmtClaimed()) {
+			else if (hospitalFlag == true && claimAmount <= claimInput.getBenefitAvailed()) {
 				claim.setStatus("Pending Action");
 				claim.setRemarks("Please contact the branch office.");
 			} else {

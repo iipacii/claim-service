@@ -1,4 +1,7 @@
 package com.cts.claim.model;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -9,10 +12,15 @@ import lombok.ToString;
 @ToString
 public class PolicyProvider {
 
+	@JsonProperty("id")
 	 private String hospitalId;
+	@JsonProperty("hospital_name")
 	 private String hospitalName;
-	 private String address;
-	 private String phoneNo;
-	 private boolean isHealthCareProvider;
+	@JsonProperty("location") 
+	private String address;
+	@JsonProperty("phno") 
+	private String phoneNo;
+	@JsonProperty("is_health_care_provider") 
+	private boolean isHealthCareProvider;
 
 }
