@@ -1,5 +1,6 @@
 package com.cts.claim.model;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -18,9 +19,9 @@ public class ClaimInput {
 	private String claimBenefit;
 	@NotBlank(message = "Hospital Id is mandatory")
 	private String hospitalId;
-	@NotBlank(message = "Benefit Availed is missing")
+	@NotNull(message = "Benefit Availed is missing")
 	private Integer benefitAvailed;
-	@NotBlank(message = "Amount Claimed is missing")
+	@NotNull(message = "Amount Claimed is missing")
 	private Integer amtClaimed;
 	@NotBlank(message = "Member Id is mandatory")
 	private String memberId;

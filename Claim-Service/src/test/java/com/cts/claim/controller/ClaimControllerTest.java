@@ -60,7 +60,9 @@ class ClaimControllerTest {
 		claim1.setHospitalId("CMS_H001");
 		claim1.setClaimBenefit("Dialysis");
 		claim1.setPolicyId("CMS_P002");
-		when(authClient.authorizeTheRequest("CorrectToken")).thenReturn(true);
+		claim1.setBenefitId("CMS_B001");
+		claim1.setMemberId("CMS_M001");
+		when(authClient.authorizeTheRequest("CorrectToken")).thenReturn(true);	
 		String jsonString = mapper.writeValueAsString(claim1);
 		System.out.println(jsonString);
 		this.mockMvc.perform(post("/submitClaim").contentType(MediaType.APPLICATION_JSON).header("Authorization", "CorrectToken")
