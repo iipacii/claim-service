@@ -2,7 +2,6 @@ package com.cts.claim;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.text.SimpleDateFormat;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -31,8 +30,7 @@ public class ClaimMicroserviceApplication {
 	//CommandLine Runner for initializing data into the Claim Table from cms_claims.csv file in resources folder
 		@Bean
 		CommandLineRunner run(ClaimRepository claimRepository) {
-			return (args) ->{
-//				SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+			return args ->{
 				try (BufferedReader br = new BufferedReader(
 						new InputStreamReader(resourceLoader.getResource("classpath:/cms_claims.csv").getInputStream()))) {
 					String line;
@@ -40,13 +38,6 @@ public class ClaimMicroserviceApplication {
 					while ((line = br.readLine()) != null) {
 						//breaking each line to multiple data
 						String[] values = line.split(",");
-//						System.out.println(values[1]);
-//						System.out.println(values[2]);
-//						System.out.println(Integer.parseInt(values[3]));
-//						System.out.println(Integer.parseInt(values[4]));
-//						System.out.println(Boolean.valueOf(values[5]));
-//						System.out.println(values[6]);
-//						System.out.println(values[7]);
 						//using a builder to quickly create and save Claim using repository
 						claimRepository.save(Claim.builder()
 								.status(values[1])

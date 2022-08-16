@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
@@ -32,7 +33,6 @@ public class Claim {
 			@Parameter(name = ClaimIdSequence.INCREMENT_PARAM, value = "1"),
 			@Parameter(name = ClaimIdSequence.VALUE_PREFIX_PARAMETER, value = "CMS_C"),
 			@Parameter(name = ClaimIdSequence.NUMBER_FORMAT_PARAMETER, value = "%03d") })
-	//@Column(columnDefinition = "varchar(255) default 'CMC_C000'")
 	private String claimId;
 	private String status;
 	private String remarks;
@@ -42,6 +42,6 @@ public class Claim {
 	private String policyId;
 	private String policyBenefits;
 	private String hospitalId;
-	public String memberId;
+	private String memberId;
 
 }

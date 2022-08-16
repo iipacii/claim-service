@@ -55,11 +55,11 @@ class ClaimControllerTest {
 	@Test
 	void testSubmitClaim() throws Exception {
 		ClaimInput claim1= new ClaimInput();
-		claim1.amtClaimed= 8000;
-		claim1.benefitAvailed= 2700000;
-		claim1.hospitalId="CMS_H001";
-		claim1.claimBenefit="Dialysis";
-		claim1.policyId="CMS_P002";
+		claim1.setAmtClaimed(8000);
+		claim1.setBenefitAvailed(2700000);
+		claim1.setHospitalId("CMS_H001");
+		claim1.setClaimBenefit("Dialysis");
+		claim1.setPolicyId("CMS_P002");
 		when(authClient.authorizeTheRequest("CorrectToken")).thenReturn(true);
 		String jsonString = mapper.writeValueAsString(claim1);
 		System.out.println(jsonString);

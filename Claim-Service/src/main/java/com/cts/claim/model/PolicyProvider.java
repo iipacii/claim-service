@@ -1,7 +1,7 @@
 package com.cts.claim.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -10,6 +10,7 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
+@Builder
 public class PolicyProvider {
 
 	@JsonProperty("id")

@@ -1,5 +1,7 @@
 package com.cts.claim.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.MissingRequestHeaderException;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -23,13 +25,15 @@ import com.cts.claim.service.ClaimService;
 public class ClaimController {
 	@Autowired
 	ClaimService service;
+	//Get Claim Status : Under dispute, Pending
 	@GetMapping(value="/getClaimStatus/{claimId}")
 	public ClaimStatusOutput getClaimStatus(@PathVariable("claimId") String claimId, @RequestHeader("Authorization") String token) throws ClaimNotFoundException, TokenExpireException, MissingRequestHeaderException {
 		return service.getClaimStatus(claimId,token);
 	}
 	
+	//Submit a new Claim and get claim status automatically
 	@PostMapping(value="/submitClaim")
-	public Claim submitClaim(@RequestBody ClaimInput claim, @RequestHeader("Authorization") String token) throws PolicyNotFoundException, TokenExpireException {
+	public Claim submitClaim(@Valid @RequestBody ClaimInput claim, @RequestHeader("Authorization") String token) throws PolicyNotFoundException, TokenExpireException {
 		return service.submitClaim(claim,token);
 	}
 

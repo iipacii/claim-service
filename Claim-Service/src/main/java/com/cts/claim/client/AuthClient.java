@@ -3,6 +3,8 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 
+
+//Method to validate token using Auth Service
 @FeignClient(url="${auth.url}",name="authapp")
 public interface AuthClient{
 	@PostMapping(value = "/authorize")
