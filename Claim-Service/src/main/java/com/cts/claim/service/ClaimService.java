@@ -17,6 +17,9 @@ import com.cts.claim.model.ClaimStatusOutput;
 import com.cts.claim.model.PolicyProvider;
 import com.cts.claim.repository.ClaimRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class ClaimService {
 	@Autowired
@@ -29,9 +32,10 @@ public class ClaimService {
 	@Value("${Benefit.tenure}")
 	private int beneditTenure; 
 	
-
+	//Gets Claim Status from the Claim Repo
 	public ClaimStatusOutput getClaimStatus(String claimId, String token) throws ClaimNotFoundException, TokenExpireException {
 		if (authClient.authorizeTheRequest(token)) {
+			log.info("Token Authorized Inside ClaimStatusOutput");
 			Claim claim = claimrepo.findByClaimId(claimId);
 			if (claim == null)
 				throw new ClaimNotFoundException("Claim not found");
@@ -42,8 +46,10 @@ public class ClaimService {
 		}
 	}
 
+	//Submit new Claim; Check conditions and assign a status to claim before submitting
 	public Claim submitClaim(ClaimInput claimInput, String token) throws PolicyNotFoundException, TokenExpireException {
 		if (authClient.authorizeTheRequest(token)) {
+			log.info("Token Authorized Inside submitClaim");
 			return claimrepo.save(configureClaim(claimInput,token));
 		} else {
 			throw new TokenExpireException("Token is expired");
@@ -51,9 +57,11 @@ public class ClaimService {
 	}
 	
 	public Claim configureClaim(ClaimInput claimInput,String token) throws PolicyNotFoundException {
+		log.info("Inside configureClaim method");
 		//getting claim amount from policy
 		int claimAmount = policyclient.getEligibleClaimAmount(claimInput.getBenefitId(),token);
 		List<PolicyProvider> list = policyclient.getAllPolicyProviders(claimInput.getPolicyId(),token);
+		log.info("List of Hospitals: "+list.toString());
 		boolean hospitalFlag = false;
 		boolean policyBenefitFlag=false;
 		//checking if hospital is a permissible health care provider
@@ -63,6 +71,7 @@ public class ClaimService {
 				break;}
 		}
 		String policyBenefits= policyclient.getPolicyBenefits(claimInput.getPolicyId(),token);
+		log.info("Policy Benefits: "+policyBenefits);
 		//checking if the policy covers the benefits required
 		if(policyBenefits.contains(claimInput.getClaimBenefit()))
 			policyBenefitFlag=true;
@@ -78,6 +87,7 @@ public class ClaimService {
 			claim.setStatus("Claim Rejected");
 			claim.setRemarks("Please check your eligibility criteria");
 		}
+		log.info("configureClaim END");
 		return claim;
 	}
 

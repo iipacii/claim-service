@@ -11,6 +11,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import com.cts.claim.entity.Claim;
 import com.cts.claim.repository.ClaimRepository;
@@ -18,6 +19,7 @@ import com.cts.claim.repository.ClaimRepository;
 @SpringBootApplication
 @EnableFeignClients
 @CrossOrigin
+@EnableWebMvc
 public class ClaimMicroserviceApplication {
 	
 	@Autowired
